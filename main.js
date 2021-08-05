@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, protocol, session, Menu } = require("electron");
+const { app, BrowserWindow, protocol, session, Menu,ipcMain, shell} = require("electron");
 
 const path = require("path");
 
@@ -54,6 +54,37 @@ function createWindow() {
         },
         icon: __dirname + "/icon.ico",
     });
+    
+    const menu = [
+        {
+            label: 'Canal',
+            submenu: [
+              {
+                label: 'Abrir en el navegador',
+                click() { mainWindow.webContents.send('openInBrowser')},
+              },
+              
+            ]
+          },
+      {
+        label: 'Mostrar',
+        submenu: [
+          {
+            label: 'Normal',
+            click() { mainWindow.setAlwaysOnTop(false) },
+          },
+          {
+            label: 'Always on top',
+            click() { mainWindow.setAlwaysOnTop(true, 'floating') },
+        },
+        ]
+      }
+    ];
+    
+
+   mainWindow.setMenu(Menu.buildFromTemplate(menu))
+
+    
 
     // Protocol handler for win32
     if (process.platform == "win32") {
@@ -62,13 +93,13 @@ function createWindow() {
     }
     //sendChannelData("createWindow# " + deeplinkingUrl);
 
-    mainWindow.setMenu(null)
+    //mainWindow.setMenu(null)
 
     // and load the index.html of the app.
     mainWindow.loadFile("index.html");
 
     // Open the DevTools.
-    //mainWindow.webContents.openDevTools();
+  //  mainWindow.webContents.openDevTools();
 }
 
 // Handle custom uri requests against the running app on Mac OS
@@ -106,3 +137,9 @@ function sendChannelData(url) {
         mainWindow.webContents.executeJavaScript(`addChannel("${channelID}","${channelName}",true)`)
     }*/
 }
+
+ipcMain.on('openInBrowser', (event, url) => {
+    console.log('opening',url)
+    shell.openExternal(url)
+
+})

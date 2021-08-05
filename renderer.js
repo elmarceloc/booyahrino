@@ -1,3 +1,17 @@
+// renderer process
+var ipcRenderer = require('electron').ipcRenderer;
+var shell = require('electron').shell
+
+ipcRenderer.on('openInBrowser', function (event) {
+	if(app.currentTab){
+		for (let i = 0; i < app.tabs.length; i++) {
+			console.log(app.tabs)
+			if(app.tabs[i].name = app.currentTab)
+				ipcRenderer.sendSync('openInBrowser', `https://booyah.live/${app.channels[i].booyahID}`)
+		}
+	}
+});
+
 var webview;
 var reloaded;
 
@@ -8,31 +22,36 @@ var app = new Vue({
       {
         // cristianghost
         twitchID: 149287198,
-        booyahID: 79543340,
+        chatroomID: 79543340,
+		booyahID: 'cristianghost',
         name: "Cristianghost",
       },
       {
         // moai
         twitchID: 68111739, // 149287198
-        booyahID: 63325494,
+        chatroomID: 63325494,
+		booyahID: 63681555,
         name: "Moai GR",
       },
       {
         //puvloo
         twitchID: 474990645,
-        booyahID: 62474863,
+        chatroomID: 62474863,
+		booyahID: 62813927,
         name: "Puvloo",
       },
       {
         //donsebastian
         twitchID: 38108090,
-        booyahID: 13037025,
+        chatroomID: 13037025,
+		booyahID: 'donsebastian',
         name: "Donsebastian",
       },
       {
         // suwie
         twitchID: 191996164,
-        booyahID: 71191348,
+        chatroomID: 71191348,
+		booyahID: 71614581,
         name: "Suwie",
       },
       // para la otra file, agregar otro container
@@ -56,7 +75,7 @@ var app = new Vue({
 
       this.currentTab = channel.name;
 
-      console.log("ID ", channel.booyahID);
+      console.log("ID ", channel.chatroomID);
       console.log("channelName ", channel.name);
 
       // refactor
@@ -73,7 +92,7 @@ var app = new Vue({
         name: channel.name,
         html: `<webview  
 			  useragent="Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko" webpreferences="allowRunningInsecureContent"
-			  partition="booyah" src="https://booyah.live/standalone/chatroom/${channel.booyahID}"
+			  partition="booyah" src="https://booyah.live/standalone/chatroom/${channel.chatroomID}"
 			  class="webview" 
 			  preload="file://${__dirname}/emotes.js"
 			  style="position:absolute;width:100%;height:1000px"></webview>`,
