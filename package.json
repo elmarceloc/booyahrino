@@ -1,0 +1,35 @@
+{
+  "name": "Booyahrino",
+  "version": "0.2.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --x64"
+  },
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^13.1.7",
+    "electron-builder": "^22.11.7"
+  },
+  "dependencies": {
+    "electron-reload": "^2.0.0-alpha.1",
+    "electron-tabs": "^0.15.0"
+  },
+  "build": {
+    "appId": "com.elmarceloc.boyahrino",
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "protocols": [
+      {
+        "name": "Boyahrino",
+        "schemes": [
+          "booyahrino"
+        ]
+      }
+    ]
+  }
+}

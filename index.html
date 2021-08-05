@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Booyahrino 0.2.0</title>
+    <style>
+      body,
+      webview {
+        margin: 0px;
+        background-color: rgb(25, 25, 25) !important;
+      }
+
+      body {
+        overflow: hidden;
+      }
+
+      .tab {
+        height: 2000px;
+        padding: 0px !important;
+      }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="semantic.min.css" />
+    <link rel="stylesheet" type="text/css" href="style.css?sdfsdf=sdfds" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+    <script>
+      if (typeof module === "object") {
+        window.module = module;
+        module = undefined;
+      }
+    </script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"
+    ></script>
+    <script src="semantic.min.js"></script>
+    <script>
+      if (window.module) module = window.module;
+    </script>
+  </head>
+
+  <body>
+    <div id="app">
+
+      <div class="ui inverted top attached tabular menu">
+        <div
+          @click="setTab(tab.name) "
+          v-for="(tab,index) in tabs.slice().reverse()"
+          :class="{ active: currentTab==tab.name }"
+          class="item"
+        >
+          {{tab.name}} 
+          <span @click="closeTab(index)" class="closeChannel"> ✖</span>
+
+        </div>
+
+        <div @click="addNewChannel" class="item">+</div>
+      </div>
+      <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">Abrir un canal</div>
+        <table class="ui celled table">
+
+          <tbody>
+            <tr
+              @click="openChannel(index)"
+              class="channel"
+              v-for="(channel,index) in channels"
+            >
+              <td class="chname" data-label="Name">
+                <img
+                  class="icon"
+                  :src="'img/channels/'+channel.booyahID+'.png'"
+                  alt=""
+                  srcset=""
+                /><span class="channelnamespan">{{channel.name}}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div @click="addNewChannel" v-if="tabs.length == 0" class="message">Clickea aquí para añadr un Canal</div>
+      <div
+        v-for="tab in tabs"
+        class="ui inverted attached active tab segment"
+        style="position: absolute;top:30px"
+      >
+        <div
+          class="webviewerContainer"
+          ref="tabs"
+          v-show="currentTab==tab.name"
+          v-html="tab.html"
+        ></div>
+      </div>
+
+      <!--
+        <div id="tab2 " class="ui inverted bottom attached active tab segment ">
+            <iframe src="https://www.twitch.tv/popout/cristianghost/chat?popout=" frameborder=" 0 "></iframe>
+
+        </div>-->
+    </div>
+    <script src="renderer.js "></script>
+    <script>
+      // need to have a script tag make webview work even if you don't plan to use it...
+    </script>
+  </body>
+</html>
