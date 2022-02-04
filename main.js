@@ -51,6 +51,7 @@ function createWindow() {
             nodeIntegrationInSubFrames: true, //for subContent nodeIntegration Enable
             webviewTag: true, //for webView
             nodeIntegrationInWorker: true,
+            
         },
         icon: __dirname + "/icon.ico",
     });
@@ -99,7 +100,7 @@ function createWindow() {
     mainWindow.loadFile("index.html");
 
     // Open the DevTools.
-  //  mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 }
 
 // Handle custom uri requests against the running app on Mac OS

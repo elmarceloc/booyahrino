@@ -431,7 +431,7 @@ var app = new Vue({
         }, 100);
         console.log("inserting css");
 
-       // webview.openDevTools();
+        webview.openDevTools();
       }, 4000);
       $(".ui.modal").modal("hide");
     },
