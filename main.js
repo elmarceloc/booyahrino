@@ -1,146 +1,251 @@
-// Modules to control application life and create native browser window
-const { app, BrowserWindow, protocol, session, Menu,ipcMain, shell} = require("electron");
+const { app, BrowserWindow, protocol, session, Menu, ipcMain, shell, webFrame } = require("electron");
+var locateChrome = require('locate-chrome');
 
 const path = require("path");
 
-// hot reload for debugging purposes
+const windowStateKeeper = require('electron-window-state');
 
-require('electron-reload')(__dirname, {
-    electron: require(`${__dirname}/node_modules/electron`)
-})
+const { autoUpdater } = require("electron-updater");
 
-const PROTOCOL_PREFIX = "booyahrino";
+const settings = require("electron-settings");
 
-app.setAsDefaultProtocolClient(PROTOCOL_PREFIX);
+const isDev = require("electron-is-dev");
 
-var mainWindow;
+var chatWindow;
 
-// Deep linked url
-var deeplinkingUrl;
+const extensionPath = __dirname.split("app.asar")[0] + "Booyah";
+const localPath = "D:/proyectos/booyahrino/Booyah"
 
-// Force Single Instance Application
-app.requestSingleInstanceLock()
-app.on('second-instance', (event, argv, cwd) => {
-    // Someone tried to run a second instance, we should focus our window.
+console.log('extension path',extensionPath)
 
-    // Protocol handler for win32
-    // argv: An array of the second instance’s (command line / deep linked) arguments
-    if (process.platform == "win32") {
-        // Keep only command line / deep linked arguments
-        deeplinkingUrl = argv.slice(1);
-    }
-    sendChannelData("app.makeSingleInstance# " + deeplinkingUrl);
+async function createWindow() {
+  // loads booyah tv
+  let appData = require('app-data-folder');
 
-    if (mainWindow) {
-        if (mainWindow.isMinimized()) mainWindow.restore();
-        mainWindow.focus();
-    }
-});
+  console.log(path.join(__dirname, 'Booyahtv'))
 
-function createWindow() {
-    // Create the browser window.
-    mainWindow = new BrowserWindow({
-        width: 380,
-        height: 720,
+  session.defaultSession.loadExtension(isDev ? localPath : extensionPath)
+
+  // Load the previous state with fallback to defaults
+  let chatWindowState = windowStateKeeper({
+    defaultWidth: 380,
+    defaultHeight: 720
+  });
+
+
+  // Create the browser window.
+  chatWindow = new BrowserWindow({
+    x: chatWindowState.x,
+    y: chatWindowState.y,
+    width: chatWindowState.width,
+    height: chatWindowState.height,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: false,
+      nativeWindowOpen: true,
+      enableRemoteModule: true,
+      sandbox: false,
+      nodeIntegrationInSubFrames: true, //for subContent nodeIntegration Enable
+      webviewTag: true, //for webView
+      nodeIntegrationInWorker: true,
+    },
+    icon: __dirname + "/icon.ico",
+  });
+  
+  chatWindowState.manage(chatWindow);
+
+  chatWindow.setAlwaysOnTop(true, 'floating')
+
+
+  chatWindow.once("ready-to-show", () => {
+    console.log("checking updates...");
+    autoUpdater.checkForUpdatesAndNotify();
+  });
+
+  // TODO: open links in browser
+  
+
+  chatWindow.webContents.setWindowOpenHandler(({ url }) => {
+    //shell.openExternal(url);
+
+    return {
+      action: 'allow',
+      overrideBrowserWindowOptions: {
+        frame: true,
+        fullscreenable: false,
         webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
-            nativeWindowOpen: true,
-            enableRemoteModule: true,
-            sandbox: false,
-            nodeIntegrationInSubFrames: true, //for subContent nodeIntegration Enable
-            webviewTag: true, //for webView
-            nodeIntegrationInWorker: true,
-            
-        },
-        icon: __dirname + "/icon.ico",
-    });
-    
-    const menu = [
-        {
-            label: 'Canal',
-            submenu: [
-              {
-                label: 'Abrir en el navegador',
-                click() { mainWindow.webContents.send('openInBrowser')},
-              },
-              
-            ]
-          },
-      {
-        label: 'Mostrar',
-        submenu: [
-          {
-            label: 'Normal',
-            click() { mainWindow.setAlwaysOnTop(false) },
-          },
-          {
-            label: 'Always on top',
-            click() { mainWindow.setAlwaysOnTop(true, 'floating') },
-        },
-        ]
+          preload: path.join(__dirname, 'Booyah.tv/custom/jquery.js'),
+          nodeIntegration:false,
+
+        }
       }
-    ];
-    
-
-   mainWindow.setMenu(Menu.buildFromTemplate(menu))
-
-    
-
-    // Protocol handler for win32
-    if (process.platform == "win32") {
-        // Keep only command line / deep linked arguments
-        deeplinkingUrl = process.argv.slice(1);
     }
-    //sendChannelData("createWindow# " + deeplinkingUrl);
 
-    //mainWindow.setMenu(null)
 
-    // and load the index.html of the app.
-    mainWindow.loadFile("index.html");
+    // return { action: 'deny' };
+  });
 
-    // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+  const menu = [
+    {
+      label: 'Canales',
+      submenu: [
+        {
+          label: 'Dylantero',
+          click() {
+            chatWindow.loadURL("https://booyah.live/channels/79330097?chat=true") 
+          },
+        },
+        {
+          label: 'Cristianghost',
+          click() {
+            chatWindow.loadURL("https://booyah.live/channels/79895327?chat=true") 
+          },
+        },
+        {
+          label: 'MoaiGR',
+          click() {
+            chatWindow.loadURL("https://booyah.live/channels/63681555?chat=true") 
+          },
+        },
+        {
+          label: 'Suwie',
+          click() {
+            chatWindow.loadURL("https://booyah.live/channels/71614581?chat=true") 
+          },
+        },
+        {
+          label: 'Jaidefinichon',
+          click() {
+            chatWindow.loadURL("https://booyah.live/channels/84242197?chat=true") 
+          },
+        },
+        {
+          label: 'Cry',
+          click() {
+            chatWindow.loadURL("https://booyah.live/xcry?chat=true") 
+          },
+        },
+        {
+          label: 'Latesitoo',
+          click() {
+            chatWindow.loadURL("https://booyah.live/channels/79458266?chat=true") 
+          },
+        },
+        {
+          label: 'MAAU',
+          click() {
+            chatWindow.loadURL("https://booyah.live/78330214?chat=true") 
+          },
+        },
+      ]
+    },
+    {
+      label: 'Ver',
+      submenu: [
+        {
+          label: 'Normal',
+          click() { chatWindow.setAlwaysOnTop(false) },
+        },
+        {
+          label: 'Always on top',
+          click() { chatWindow.setAlwaysOnTop(true, 'floating') },
+        },
+        { role: 'zoomin', accelerator: 'CommandOrControl+=' },
+        { role: 'zoomout' },
+      ]
+    },
+    {
+      label: 'Recargar',
+      accelerator: "CmdOrCtrl+R",
+      click: () => {
+        chatWindow.reload();
+      }
+    },
+    {
+      label: 'Abrir reproductor',
+      click: () => {
+        openPlayer()
+      }
+    }
+  ];
+
+  // saves the selected channel in appdata
+  chatWindow.webContents.on('did-finish-load', () => {
+    settings.set("general", {
+      channel: chatWindow.webContents.getURL(),
+    });
+  })
+
+
+  chatWindow.setMenu(Menu.buildFromTemplate(menu))
+  //chatWindow.setMenu(null)
+
+  settings.get("general.channel").then((channelURL) => {
+    console.log(channelURL)
+
+    if(channelURL){
+      chatWindow.loadURL(channelURL);
+    }else{ // fallback to cristianghost
+      chatWindow.loadURL("https://booyah.live/channels/79895327?chat=true");
+    }
+  });
+
+
+  if (isDev) {
+    chatWindow.webContents.openDevTools();
+  }
 }
 
-// Handle custom uri requests against the running app on Mac OS
-app.on("open-url", (event, url) => {
-    event.preventDefault();
-    // handle the data
-    deeplinkingUrl = url
-    sendChannelData("open-url# " + deeplinkingUrl)
+function openPlayer() {
+    const menu = [
+      /*{
+        label: 'Ver VODS',
+        click: () => {
+          const url = playerWindow.webContents.getURL().replace('channels','studio').replace('player','vods')
+          playerWindow.loadURL(url);
+          console.log(url)
+        }
+      }*/
+    ];
+    
+    playerWindow = new BrowserWindow({
+      width: 1280,
+      height: 720,
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+        nativeWindowOpen: true,
+        enableRemoteModule: true,
+        sandbox: false,
+        nodeIntegrationInSubFrames: true, //for subContent nodeIntegration Enable
+        webviewTag: true, //for webView
+        nodeIntegrationInWorker: true,
+      },
+      icon: __dirname + "/icon.ico",
+    });
 
-});
+
+  playerWindow.setMenu(Menu.buildFromTemplate(menu))
+
+  playerWindow.setAlwaysOnTop(true, 'floating')
+
+  playerWindow.loadURL(chatWindow.webContents.getURL().replace('chat','player'));
+
+}
 
 app.whenReady().then(() => {
-    createWindow();
+  createWindow();
 
-    app.on("activate", function() {
-        // On macOS it's common to re-create a window in the app when the
-        // dock icon is clicked and there are no other windows open.
-        if (BrowserWindow.getAllWindows().length === 0) createWindow();
-    });
+  app.on("activate", function () {
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
-app.on("window-all-closed", function() {
-    if (process.platform !== "darwin") app.quit();
+app.on("window-all-closed", function () {
+  if (process.platform !== "darwin") app.quit();
 });
-
-// Log both at dev console and at running node console instance
-function sendChannelData(url) {
-  /*  var [channelID, channelName] = [...url.split(',')]
-
-    if (mainWindow && mainWindow.webContents) {
-        url.split('/')
-        mainWindow.webContents.executeJavaScript(`addChannel("${channelID}","${channelName}",true)`)
-    }*/
-}
-
-ipcMain.on('openInBrowser', (event, url) => {
-    console.log('opening',url)
-    shell.openExternal(url)
-
-})

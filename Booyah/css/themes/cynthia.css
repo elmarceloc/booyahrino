@@ -1,0 +1,7 @@
+.desktop-header{
+    background-image: url(https://i.imgur.com/FxPgN86.png);
+    background-size: contain;
+    background-repeat-x: no-repeat;
+    background-color: hsl(45deg 29% 40%);
+    background-position-x: 130px;
+}

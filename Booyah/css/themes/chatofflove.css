@@ -1,0 +1,14 @@
+.desktop-header{
+    background-image: url(https://cdn.betterttv.net/emote/6209fbf806fd6a9f5be476fc/3x)!important;
+    background-size: contain!important;
+    background-repeat-x: no-repeat!important;
+    background-color: hsl(351deg 97% 60%)!important;
+    background-position-x: 130px!important;
+}
+.send-btn{
+    background-image: linear-gradient(265deg, #fc3654 0%, #fc3654 100%)!important;
+    color: white!important;
+}
+.video-info{
+    background-color: #fc3654!important;
+}

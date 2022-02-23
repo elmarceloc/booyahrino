@@ -1,0 +1,668 @@
+.emote {
+  position: relative;
+  vertical-align: middle;
+  max-height: 28px;
+  width: auto;
+  height: auto;
+}
+
+.zero-width{
+  transform: translate(-120%);
+  position: absolute;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+  
+}
+
+.zero-width-hat{
+  transform: translate(-120%, -24%);
+  position: absolute;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+}
+
+.emote-in-menu{
+ 
+}
+
+/* .highlighted {
+	background-color: rgba(255, 0, 0, 0.3);
+} */
+
+/* cyrillic */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v3/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZthiI2B.woff2)
+    format("woff2");
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v3/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZNhiI2B.woff2)
+    format("woff2");
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v3/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZxhiI2B.woff2)
+    format("woff2");
+  unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v3/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZBhiI2B.woff2)
+    format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1,
+    U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v3/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZFhiI2B.woff2)
+    format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v3/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+.components-chatbox-message {
+  margin: 4px 0px 0;
+}
+.message-text {
+  color: white !important;
+  font-weight: normal;
+  font-family: "Inter", sans-serif;
+}
+.components-chatbox-message .message-content {
+  font-size: 12px;
+}
+.components-chatbox-user-menu {
+  /*  text-shadow: 2px 2px 3px black;*/
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+}
+
+body {
+  background-color: rgb(25, 25, 25);
+}
+
+.scroll-container {
+  padding-left: 10px;
+}
+
+#hide {
+  background: none repeat scroll 0 0 transparent;
+  border: medium none;
+  border-spacing: 0;
+  color: #ffffff;
+  font-family: "PT Sans Narrow", sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.42rem;
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+  /* text-align: left; */
+  text-decoration: none;
+  text-indent: 0;
+  text-align: center;
+  font-family: sans-serif;
+}
+/* le quita el margen a los mensajes */
+.components-chatbox-message {
+  margin: 2px 12px 0 !important;
+}
+
+.scroll-container {
+  padding-left: 0px!important;
+  margin-left: 0px!important;
+}
+
+#emotes-icon {
+  background-image: url("https://i.imgur.com/mxV3SuV.png");
+  background-position: 0px 0px;
+  width: 26px;
+  height: 28px;
+}
+#emotes-icon:hover {
+  background-position: 26px 0px;
+}
+
+.emoteIcon {
+  cursor: pointer;
+  width: 32px;
+  margin: 2px;
+}
+
+#hidebutton {
+  background: none repeat scroll 0 0 transparent;
+  border: medium none;
+  border-spacing: 0;
+  color: #c5aa09;
+  font-family: "PT Sans Narrow", sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.42rem;
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+  text-indent: 0;
+  width: 100%;
+  text-align: center;
+  font-family: Inter, sans-serif;
+}
+#bttvicon {
+  background-image: url("https://cdn.betterttv.net/emote/5590b223b344e2c42a9e28e3/1x");
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  height: 28px;
+}
+
+#ffzicon {
+  background-image: url("https://cdn.frankerfacez.com/emoticon/243789/1");
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  height: 25px;
+}
+
+#twitchicon {
+  background-image: url("https://i.imgur.com/joWQKzn.png");
+  height: 24px;
+  background-repeat: no-repeat;
+}
+#subsicon {
+  background-image: url("https://imgur.com/V2pMZPv.png");
+  height: 24px;
+  background-repeat: no-repeat;
+}
+.wrapperTitle{
+  position: relative !important;
+  left: -70px!important;
+}
+#channelIcon {
+  width: 24px;
+  height: 24px;
+  background-size: cover;
+}
+
+.emoteCategory {
+  padding: 15px!important;
+  background: hsl(240deg 10% 12%);
+}
+
+.emoteCategory span {
+  position: absolute;
+  left: 50px;
+}
+#emoteList {
+  position: fixed;
+  left: 0px;
+  transform: translate(0px, -300px);
+  overflow: hidden;
+  width: 100%;
+  max-height: 300px;
+  min-height: 300px;
+  display: none;
+  top: -56px;
+}
+
+.default-panel {
+  width: 320px;
+  min-width: 320px;
+  display: inline-block;
+  margin: 10px !important;
+  vertical-align: top;
+}
+.components-chatbox-banners {
+  display: none;
+}
+.views-standalone-chatroom {
+  background-color: rgb(24, 24, 27) !important;
+}
+
+.message-connection-status {
+  display: none;
+}
+/* USERNAME AND VIEWS*/
+.viewer-count {
+  color: red !important;
+}
+
+.foldArrow {
+  /*position: absolute!important;*/
+  position: relative !important;
+  left: 110px!important;
+  color: rgb(255, 176, 0);
+}
+
+.panelsTitle {
+  margin-left: 16px;
+}
+.channel-infos {
+  margin-top: 0px !important;
+}
+
+.components-chat-menu-users-popover .user:last-child {
+  margin-bottom: 0px !important;
+}
+
+/* panels */
+.ScTitleText-sc-1gsen4-0 {
+  font-size: 20px;
+}
+.donoBadge {
+  width: 16px;
+  height: 16px;
+}
+.tipsbadge {
+  padding: 16px !important;
+}
+
+.downloadvod {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+  color: initial;
+  margin-left: 40px !important;
+  padding: 20px !important;
+  background-color: #2525ff !important;
+}
+#createClip {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  color: white !important;
+  text-decoration: none;
+  color: initial;
+  margin-left: 40px !important;
+  margin-right: 20px !important;
+  padding: 20px !important;
+  background-color: #e6269c !important;
+}
+#clipModal {
+  padding: 30px;
+  text-align: center;
+}
+#clipModal h1 {
+  text-align: center;
+  color: black;
+  font-size: 30px;
+  padding-bottom: 30px;
+  height: 90%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#clipModal input {
+  padding: 6px;
+  border-radius: 6px;
+  border: #00000075 solid 1px;
+}
+
+#clipModal div {
+  color: black;
+  font-size: 20px;
+}
+#clipBtn {
+  padding: 20px;
+  margin-top: 30px;
+  background-color: rgb(230, 38, 156) !important;
+}
+
+.components-chatbox-message-list .message-list .message:last-child{
+  padding-bottom: 0px!important;
+}
+
+/*.components-chat-menu-others-popover{
+  height: 138px!important;
+}*/
+.emoteCategory{
+  cursor: pointer;
+}
+
+.chaturl{
+  color: #a970ff!important;
+}
+.chaturl:hover{
+  color: #a970ff;
+  background-color: #6b6b6d;
+  text-decoration: underline;}
+.chaturl:visited{
+  color: #a970ff!important;
+}
+.slow-mode-on{
+  width: 70px!important;
+}
+.message:hover{
+  background-color: #2c2c2d!important;
+}
+.message-content .username:hover{
+  text-decoration: underline;
+}
+
+#table-container{
+  height: 300px;
+  overflow: scroll;
+}
+
+#leaderboard{
+}
+.rank-table{
+  font-family: Inter, sans-serif;
+  background-color: rgb(25,25,25);
+  color: white;
+  width: 100%;
+
+}
+.rank-tr:first-child{
+  font-size: 22px;
+}
+.rank-tr:nth-child(2){
+  font-size:19px
+}
+.rank-tr:first-child .rank span{
+  font-size:15px;
+}
+.rank-points{
+  text-align:right;
+}
+.rank-tr{
+  font-size:16px;
+}
+.rank-tr:hover{
+  background-color: #292929!important;
+}
+.rank-td{
+  padding: 5px;
+}
+.rank-tr:nth-child(odd) {
+  background: rgb(29, 29, 29)
+}
+.rank-emote{
+  height:28px;
+  width: auto;
+}
+.rank-emote-secound{
+  height:23px;
+  width: auto;
+}
+.rank{
+  display: flex;
+}
+.rank span{
+  font-size:12px;
+}
+
+.btv-badge{
+  width: 18px;
+  padding-right: 4px;
+  vertical-align: middle;
+  margin-bottom: 0.25em;
+}
+
+.components-chatbox-user-menu-popover-overlay{
+  border-radius: 3px!important;
+ }   
+.emote-preview{
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.sticker-image,.sticker-image img{
+  width: 28px !important;
+  height: 28px !important;
+}
+
+.supporter-info{
+  height: 28px;
+  width: 28px;
+  vertical-align: middle;
+  padding-left: 10px;
+}
+
+.wrapper {
+  margin: 20px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  padding: 5px; 
+  width: 320px;
+  gap: 4px;
+}
+
+.wrapper div img {
+  height: 100%;
+  cursor: pointer;
+}
+
+.user-list-wrapper{
+  overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.donator-input{
+  border: none!important;
+  padding: 6px!important;
+  border-radius: 5px!important;
+  width: 400px!important;
+  color:black!important;
+}
+.donator-input-half{
+  width: 200px!important;
+  display: inline-block!important;
+  border-radius: 5px!important;
+  padding: 6px!important;
+  color:black!important;
+}
+
+#emote-url{
+  color: black!important;
+}
+
+.submit-donator{
+  border-radius: 10px;
+  background-image: linear-gradient(265deg, #9b06e0 0%, #9801df 100%);
+  color: white;
+  border:none;
+  padding:8px;
+}
+#colorpicker{
+  width: 150px;
+  border: none;
+  background-color: transparent
+}
+.donator-title{
+  padding-bottom: 17px;
+}
+.donator-label{
+  color: #adadba;
+  padding-bottom: 10px;
+}
+#dono{
+  margin: 24px 0px;
+}
+.emote-list-wrapper{
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+#emoteGroups{
+  text-align: center;
+}
+.vermas{
+  border: none;
+  padding: 4px 7px;
+  background: #303034;
+  border-radius: 17px;
+  color: white;
+  float: right;
+}
+.spam-dono{
+  padding: 10px 10px!important;
+}
+/* CONFIG DIALOG */
+#dialog{
+  padding: 0px!important;
+}
+
+.ui-dialog{
+  z-index: 1000;
+  background: #19191d;
+  border-color: #111113;
+  padding: 0px;
+  font-family: 'Open Sans', Amiri, Arial, Helvetica, 'Droid Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica'!important;
+}
+
+.ui-dialog label{
+  color: white!important;
+}
+
+.ui-dialog p{
+  color: white!important;
+}
+
+.config-header{
+  background: hsl(240deg 7% 7%);
+  color: white;
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+  font-weight: bold;
+  padding: 4px;
+
+}
+
+.config-icon{
+  width: 28px;
+  padding-right: 10px;
+}
+
+.ui-widget-header{
+  display: none!important;
+}
+
+.ui-widget-overlay.ui-front { /* you want this */
+  opacity:.55;
+  background-color: black;
+  z-index: 1000;
+}
+
+.config-container{
+  padding: 15px;
+}
+
+#closeconfigs{
+  position: absolute;
+  right: 10px;
+  color: #ff1e1e;
+  cursor: pointer;
+  width: 23px;
+  text-align: center;
+}
+.config-container{
+  font-size: 13px;
+}
+.config-subtitle{
+  font-size: 16px;
+  color:white;
+  padding-bottom: 20px;
+  display: flex;
+  align-items: center; /* align vertical */
+}
+.subtitle-icon{
+  width: 25px;
+  padding-right: 5px;
+}
+#config-preview{
+  position: absolute;
+  bottom: 0px;
+  width:100%
+}
+
+.config-group{
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+input[type='checkbox']{
+  width: 14px !important;
+  height: 14px !important;
+  margin: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  outline: 1px solid rgb(36, 36, 36);
+  box-shadow: none;
+  font-size: 0.8em;
+  text-align: center;
+  line-height: 1em;
+  background: #111113;
+}
+
+input[type='checkbox']:checked {
+  background: #8E45FA!important;
+}
+
+.submit-donator{
+  cursor: pointer;
+}
+
+#settingsbtn img{
+  width: 24px!important;
+}
+
+.components-popover-container .components-profile-card-image{
+  display: none!important;
+}

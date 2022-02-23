@@ -1,0 +1,10 @@
+.layout-header, .components-side-nav-right,.channel-top-bar,.box,.components-side-nav-left,.right-panel,.views-playback-recommended{
+    display: none!important;
+}
+.components-base-player{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: black!important;
+    z-index: 100000;
+}

@@ -1,0 +1,87 @@
+{
+	"name": "Booyah.tv",
+	"version": "1.50",
+	"description": "Mejora la experiencia de Booyah.live",
+	"manifest_version": 3,
+
+	"permissions": ["storage"],
+
+	"icons": {
+		"16": "16.png",
+		"48": "48.png",
+	   	"128": "128.png"
+	},
+	"content_scripts": [
+		{
+			"matches": ["https://auth.booyah.live/*"],
+			"js" : [
+				"libs/jquery.min.js"
+			]
+		},
+		{
+			"css": [
+				"css/jquery.modal.min.css",
+				"css/jquery-ui.css",
+				"css/emotes.css",
+				"css/autocomplete.css"
+			],
+			"js": [
+				"libs/jquery.min.js",
+				"libs/jquery-ui.min.js",
+				"libs/jquery.modal.min.js",
+				"libs/tmi.min.js",
+				"libs/tabcomplete.min.js",
+				"content_scripts/emotes.js",
+				"custom/booyahrino.js"
+			],
+			"matches": ["https://booyah.live/*"],
+			"exclude_matches": [
+				"https://booyah.live/standalone/chatroom/chat-list*"
+			]
+		}, 
+		{
+			"js": [
+				"libs/jquery.min.js",
+				"content_scripts/bttv.js"
+			],
+			"matches": ["https://betterttv.com/emotes/*"],
+			"exclude_matches": [
+				"https://betterttv.com/dashboard/emotes/upload"
+			]
+		},
+		{
+			"js": [
+				"libs/jquery.min.js",
+				"content_scripts/ffz.js"
+			],
+			"matches": ["https://www.frankerfacez.com/emoticon/*"]
+		},
+		{
+			"js": [
+				"libs/jquery.min.js",
+				"content_scripts/7tv.js"
+			],
+			"matches": ["https://7tv.app/*"]
+		}
+	],
+	"web_accessible_resources": [
+		{  "resources":[
+			"css/optional/interlined.css",
+			"css/optional/hidebadges.css",
+			"css/optional/distractfree.css",
+			"css/optional/hideviewers.css",
+			"css/optional/hiderecommended.css",
+
+			"css/themes/chatofflove.css",
+
+			"resources/icons/emote-menu.png",
+			"resources/icons/twitch.svg",
+			"resources/badges/staff.png",
+			"resources/sounds/blip.wav",
+			"custom/chat.css",
+			"custom/player.css"	
+		],
+		    "matches": ["https://booyah.live/*"]
+		}
+	]
+}
